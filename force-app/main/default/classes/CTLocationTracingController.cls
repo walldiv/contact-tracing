@@ -27,7 +27,7 @@ public with sharing class CTLocationTracingController {
         Set<Id> personIds = new Set<Id>();
         for(Location_Tracing__c loc : locationTraces){
             traceIds.add(loc.Location__c);
-            personIds.add(loc.Person__c)
+            personIds.add(loc.Person__c);
         }
         return [SELECT FIELDS(STANDARD) FROM Location_Tracing__c WHERE Location__c IN :traceIds AND Person__c IN :personIds];
     }

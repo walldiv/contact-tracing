@@ -21,4 +21,12 @@ public with sharing class CTPersonController {
         List<Person__c> person = [SELECT Id, Name, Health_Status__c, Mobile__c, Status_Update_Date__c, Token__c FROM Person__c WHERE Id=:personId];
         return person.size() > 0 ? person[0] : null;
     }
+
+    public static Map<String, Integer> getHealthStatusCount(){
+        Map<String, Integer> retMap = new Map<String, Integer>();
+        for(AggregateResult res : [SELECT Health_Status__c, COUNT(Id) numberOfPeople FROM Person__c GROUP BY Health_Status__c]){
+            retMap.put((String) res.get('Health_Status__c'), (Integer) res.get('numberOfPeople'));
+        }
+        return retMap;
+    }
 }
